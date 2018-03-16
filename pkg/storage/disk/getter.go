@@ -9,8 +9,8 @@ import (
 	"github.com/gomods/athens/pkg/storage"
 )
 
-func (v *storageImpl) Get(baseURL, module, version string) (*storage.Version, error) {
-	versionedPath := v.versionDiskLocation(baseURL, module, version)
+func (v *storageImpl) Get(module, version string) (*storage.Version, error) {
+	versionedPath := v.versionDiskLocation(module, version)
 
 	mod, err := ioutil.ReadFile(filepath.Join(versionedPath, "go.mod"))
 	if err != nil {

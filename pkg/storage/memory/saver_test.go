@@ -8,16 +8,16 @@ import (
 func (m *MemoryTests) TestSave() {
 	r := m.Require()
 	vsn := "v1.0.0"
-	r.NoError(m.mem.Save(baseURL, module, vsn, mod, zip))
+	r.NoError(m.mem.Save(module, vsn, mod, zip))
 
 	// make sure List returns the right version list
-	listed, err := m.mem.List(baseURL, module)
+	listed, err := m.mem.List(module)
 	r.NoError(err)
 	r.Len(listed, 1)
 	r.Equal(vsn, listed[0])
 
 	// make sure get returns the right version
-	version, err := m.mem.Get(baseURL, module, vsn)
+	version, err := m.mem.Get(module, vsn)
 	r.NoError(err)
 	r.Equal(vsn, version.RevInfo.Version)
 	r.Equal(vsn, version.RevInfo.Name)

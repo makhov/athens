@@ -9,8 +9,7 @@ import (
 )
 
 const (
-	baseURL = "testbaseurl"
-	module  = "testmodule"
+	module  = "test/module"
 	version = "v1.0.0"
 )
 

@@ -1,29 +1,23 @@
 package memory
 
 import (
-	"fmt"
 	"sync"
 
 	"github.com/gomods/athens/pkg/storage"
 )
 
-type GetterSaver interface {
-	storage.Lister
-	storage.Getter
-	storage.Saver
-}
-
-type getterSaverImpl struct {
+type storageImpl struct {
 	*sync.RWMutex
 	versions map[string][]*storage.Version
 }
 
-func (e *getterSaverImpl) key(baseURL, module string) string {
-	return fmt.Sprintf("%s/%s", baseURL, module)
+func (e *storageImpl) key(module string) string {
+	return module
 }
 
-func New() GetterSaver {
-	return &getterSaverImpl{
+// New creates a new in-memory storage implementation
+func New() storage.Storage {
+	return &storageImpl{
 		RWMutex:  new(sync.RWMutex),
 		versions: make(map[string][]*storage.Version),
 	}

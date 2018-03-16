@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 )
 
-func (s *storageImpl) Save(baseURL, module, vsn string, mod, zip []byte) error {
-	dir := s.versionDiskLocation(baseURL, module, vsn)
+func (s *storageImpl) Save(module, vsn string, mod, zip []byte) error {
+	dir := s.versionDiskLocation(module, vsn)
 	// TODO: 777 is not the best filemode, use something better
 
 	// make the versioned directory to hold the go.mod and the zipfile

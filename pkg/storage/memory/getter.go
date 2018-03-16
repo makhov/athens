@@ -4,10 +4,10 @@ import (
 	"github.com/gomods/athens/pkg/storage"
 )
 
-func (v *getterSaverImpl) Get(baseURL, module, vsn string) (*storage.Version, error) {
+func (v *storageImpl) Get(module, vsn string) (*storage.Version, error) {
 	v.RLock()
 	defer v.RUnlock()
-	key := v.key(baseURL, module)
+	key := module
 	versions := v.versions[key]
 	for _, version := range versions {
 		if version.RevInfo.Version == vsn {
@@ -15,9 +15,8 @@ func (v *getterSaverImpl) Get(baseURL, module, vsn string) (*storage.Version, er
 		}
 	}
 	return nil, &storage.ErrVersionNotFound{
-		BasePath: baseURL,
-		Module:   module,
-		Version:  vsn,
+		Module:  module,
+		Version: vsn,
 	}
 
 }

@@ -8,7 +8,7 @@ import (
 	"github.com/gomods/athens/pkg/storage"
 )
 
-func (v *getterSaverImpl) Save(baseURL, module, vsn string, mod, zip []byte) error {
+func (v *storageImpl) Save(module, vsn string, mod, zip []byte) error {
 	reader := ioutil.NopCloser(bytes.NewReader(zip))
 	newVsn := &storage.Version{
 		RevInfo: storage.RevInfo{
@@ -22,14 +22,13 @@ func (v *getterSaverImpl) Save(baseURL, module, vsn string, mod, zip []byte) err
 	}
 	v.Lock()
 	defer v.Unlock()
-	key := v.key(baseURL, module)
+	key := module
 	existingVersionsSlice := v.versions[key]
 	for _, version := range existingVersionsSlice {
 		if version.RevInfo.Version == vsn {
 			return storage.ErrVersionAlreadyExists{
-				BasePath: baseURL,
-				Module:   module,
-				Version:  vsn,
+				Module:  module,
+				Version: vsn,
 			}
 		}
 	}

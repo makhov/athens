@@ -3,12 +3,12 @@ package memory
 import (
 	"testing"
 
+	"github.com/gomods/athens/pkg/storage"
 	"github.com/stretchr/testify/suite"
 )
 
 const (
-	baseURL = "base.com"
-	module  = "my/module"
+	module = "my/module"
 )
 
 var (
@@ -18,7 +18,7 @@ var (
 
 type MemoryTests struct {
 	suite.Suite
-	mem GetterSaver
+	mem storage.Storage
 }
 
 func (m *MemoryTests) SetupTest() {

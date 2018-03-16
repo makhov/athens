@@ -4,8 +4,8 @@ import (
 	"io/ioutil"
 )
 
-func (l *storageImpl) List(basePath, module string) ([]string, error) {
-	loc := l.moduleDiskLocation(basePath, module)
+func (l *storageImpl) List(module string) ([]string, error) {
+	loc := l.moduleDiskLocation(module)
 	fileInfos, err := ioutil.ReadDir(loc)
 	if err != nil {
 		return nil, err

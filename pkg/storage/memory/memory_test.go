@@ -2,9 +2,9 @@ package memory
 
 func (m *MemoryTests) TestNew() {
 	r := m.Require()
-	getterSaverIface := New()
-	getterSaver, ok := getterSaverIface.(*getterSaverImpl)
+	iface := New()
+	storage, ok := iface.(*storageImpl)
 	r.True(ok)
-	r.NotNil(getterSaver.versions)
-	r.NotNil(getterSaver.RWMutex)
+	r.NotNil(storage.versions)
+	r.NotNil(storage.RWMutex)
 }

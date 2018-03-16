@@ -17,6 +17,6 @@ func addRegistryRoutes(app *buffalo.App) error {
 	auth := app.Group("/auth")
 	auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
 	auth.GET("/{provider}/callback", authCallback(mgoStore))
-	//	app.GET("/{base_url:.+}/{module}", homeHandler)
+	//	app.GET("/{module:.+}", homeHandler)
 	return nil
 }

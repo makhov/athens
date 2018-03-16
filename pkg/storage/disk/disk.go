@@ -19,12 +19,12 @@ type storageImpl struct {
 	rootDir string
 }
 
-func (s *storageImpl) moduleDiskLocation(baseURL, module string) string {
-	return filepath.Join(s.rootDir, baseURL, module)
+func (s *storageImpl) moduleDiskLocation(module string) string {
+	return filepath.Join(s.rootDir, module)
 }
 
-func (s *storageImpl) versionDiskLocation(baseURL, module, version string) string {
-	return filepath.Join(s.moduleDiskLocation(baseURL, module), version)
+func (s *storageImpl) versionDiskLocation(module, version string) string {
+	return filepath.Join(s.moduleDiskLocation(module), version)
 
 }
 

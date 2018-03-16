@@ -5,12 +5,11 @@ import (
 )
 
 type NotFoundErr struct {
-	BasePath string
-	Module   string
+	Module string
 }
 
 func (n NotFoundErr) Error() string {
-	return fmt.Sprintf("%s/%s not found", n.BasePath, n.Module)
+	return fmt.Sprintf("module %s not found", n.Module)
 }
 
 type ErrVersionNotFound struct {

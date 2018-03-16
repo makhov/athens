@@ -4,5 +4,5 @@ package storage
 type Lister interface {
 	// List gets all the versions for the given baseURL & module.
 	// It returns NotFoundErr if baseURL/module isn't found
-	List(baseURL, module string) ([]string, error)
+	List(module string) ([]string, error)
 }
