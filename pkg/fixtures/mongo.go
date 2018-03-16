@@ -3,7 +3,10 @@ package fixtures
 import (
 	"github.com/globalsign/mgo"
 	"github.com/stretchr/testify/suite"
+	"github.com/technosophos/moniker"
 )
+
+var names = moniker.NewAlliterator()
 
 // DefaultURL is the default Mongo URL for testing
 const DefaultURL = "127.0.0.1:27017"
@@ -21,16 +24,26 @@ const DefaultURL = "127.0.0.1:27017"
 //	}
 type Mongo struct {
 	suite.Suite
-	URL     string
-	Session *mgo.Session
+	url    string
+	dbName string
+	DB     *mgo.Database
 }
 
 func (m *Mongo) SetupTest() {
-	sess, err := mgo.Dial(m.URL)
+	sess, err := mgo.Dial(m.url)
 	m.Require().NoError(err)
-	m.Session = sess
+	m.DB = sess.DB(m.dbName)
 }
 
 func (m *Mongo) TearDownTest() {
+	m.Require().NoError(m.DB.DropDatabase())
+}
 
+func New(url string) *Mongo {
+	dbName := names..NameSep("-")
+	return &Mongo{
+		Suite: suite.New(),
+		url: url,
+		dbName: names.NameSep("-") + "-athens-testing",
+	}
 }
