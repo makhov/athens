@@ -9,7 +9,7 @@ import (
 var names = moniker.NewAlliterator()
 
 // DefaultURL is the default Mongo URL for testing
-const DefaultURL = "127.0.0.1:27017"
+const DefaultMongoURL = "127.0.0.1:27017"
 
 // Mongo is a text fixture for use with github.com/stretchr/testify/suite tests
 //
@@ -39,7 +39,7 @@ func (m *Mongo) TearDownTest() {
 	m.Require().NoError(m.DB.DropDatabase())
 }
 
-func New(url string) *Mongo {
+func NewMongo(url string) *Mongo {
 	dbName := names..NameSep("-")
 	return &Mongo{
 		Suite: suite.New(),
